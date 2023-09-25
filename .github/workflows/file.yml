@@ -24,7 +24,7 @@ jobs:
           make install
       - name: Run linter and pytest
         run: |
-          pytest
+          poetry run pytest
           poetry run flake8 gendiff
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0
