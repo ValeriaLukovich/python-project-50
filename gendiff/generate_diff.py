@@ -5,19 +5,15 @@ def generate_diff(first_file, second_file):
     file1 = json.load(open(first_file))
     file2 = json.load(open(second_file))
     diff = ''
-    for key1, value1 in file1.items():
-        for key2, value2 in file2.items():
-            if key1 == key2 and value1 == value2:
-                diff += f"  {key1}: {value1}\n"
-            elif key1 == key2 and value1 != value2:
-                diff += f"- {key1}: {value1}\n"
-                diff += f"+ {key2}: {value2}\n"
-            elif not file2.get(key1):
-                string = f"- {key1}: {value1}\n"
-                if string not in diff:
-                    diff += string
-            elif not file1.get(key2):
-                string = f"+ {key2}: {value2}\n"
-                if string not in diff:
-                    diff += string
+    res = {**file1, **file2}
+    for key, value in sorted(res.items()):
+        if key in file1 and key in file2 and file1[key] == file2[key]:
+            diff += f"  {key}: {value}\n"
+        elif key in file1 and key in file2 and file1[key] != file2[key]:
+            diff += f"- {key}: {file1[key]}\n"
+            diff += f"+ {key}: {file2[key]}\n"
+        elif key in file1:
+            diff += f"- {key}: {value}\n"
+        elif key in file2:
+            diff += f"+ {key}: {value}\n"
     return "{\n" + diff + "}"
