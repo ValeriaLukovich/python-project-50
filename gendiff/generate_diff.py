@@ -1,9 +1,9 @@
-import json
+from gendiff.parsing_files import parsing_files
 
 
 def generate_diff(first_file, second_file):
-    file1 = json.load(open(first_file))
-    file2 = json.load(open(second_file))
+    file1 = parsing_files(first_file)
+    file2 = parsing_files(second_file)
     diff = ''
     res = {**file1, **file2}
     for key, value in sorted(res.items()):

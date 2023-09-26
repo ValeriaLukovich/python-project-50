@@ -8,4 +8,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/35f5e49a65a4753a0eda/test_coverage)](https://codeclimate.com/github/ValeriaLukovich/python-project-50/test_coverage)
 
 
-<script async id="asciicast-inetvdnUzcKhvW8sX29m9vKXb" src="https://asciinema.org/a/inetvdnUzcKhvW8sX29m9vKXb.js"></script>
+[![asciicast](https://asciinema.org/a/inetvdnUzcKhvW8sX29m9vKXb.svg)](https://asciinema.org/a/inetvdnUzcKhvW8sX29m9vKXb)
+
+
+[![asciicast](https://asciinema.org/a/lLoPrLBbrI8dWBCcVFaSCR4KD.svg)](https://asciinema.org/a/lLoPrLBbrI8dWBCcVFaSCR4KD)
