@@ -10,7 +10,7 @@ def test_result():
   - timeout: 50
   + timeout: 20
   + verbose: true
-  }'''
+}'''
 
 
 @pytest.fixture
@@ -20,7 +20,7 @@ def test_compare_file1():
     host: hexlet.io
     proxy: 123.234.53.22
     timeout: 50
-  }'''
+}'''
 
 
 @pytest.fixture
@@ -29,7 +29,7 @@ def test_compare_file2():
     host: hexlet.io
     timeout: 20
     verbose: true
-  }'''
+}'''
 
 
 @pytest.fixture
