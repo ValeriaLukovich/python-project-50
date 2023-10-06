@@ -1,53 +1,54 @@
 from gendiff.parsing_files import parsing_files
 from gendiff.stylish import stylish
+from gendiff.make_dict import make_dict
 
 
 def generate_diff(first_file, second_file, format=stylish):
     file1 = parsing_files(first_file)
     file2 = parsing_files(second_file)
-    
-    def walk(file1, file2, depth=1):
-        res = {**file1, **file2}
+
+    def walk(file1, file2, d=1):
+        union = {**file1, **file2}
         diff = []
-        for k in sorted(res.keys()):
-            children1 = file1.get(k)
-            children2 = file2.get(k)
-            if not isinstance(children1, dict) and not isinstance(children2, dict):
+        for k in sorted(union.keys()):
+            child1 = file1.get(k)
+            child2 = file2.get(k)
+            if not isinstance(child1, dict) and not isinstance(child2, dict):
                 if k in file1 and k in file2 and file1[k] == file2[k]:
-                    dictionary = {"status": "without changes", "depth": depth, "key": k, "value": file1[k]}
-                    diff.append(dictionary)
+                    res = make_dict("without changes", d, k, file1[k])
+                    diff.append(res)
                 elif k in file1 and k in file2 and file1[k] != file2[k]:
-                    dictionary = {"status": "deleted", "depth": depth, "key": k, "value": file1[k]}
-                    diff.append(dictionary)
-                    dictionary = {"status": "added", "depth": depth, "key": k, "value": file2[k]}
-                    diff.append(dictionary)
+                    res = make_dict("deleted", d, k, file1[k])
+                    diff.append(res)
+                    res = make_dict("added", d, k, file2[k])
+                    diff.append(res)
                 elif k in file1:
-                    dictionary = {"status": "deleted", "depth": depth, "key": k, "value": file1[k]}
-                    diff.append(dictionary)
+                    res = make_dict("deleted", d, k, file1[k])
+                    diff.append(res)
                 elif k in file2:
-                    dictionary = {"status": "added", "depth": depth, "key": k, "value": file2[k]}
-                    diff.append(dictionary)
+                    res = make_dict("added", d, k, file2[k])
+                    diff.append(res)
             else:
-                if type(children1) is dict and type(children2) is dict:
-                    dictionary = {"status": "dict", "depth": depth, "key": k, "value": walk(children1, children2, depth + 1)}
-                    diff.append(dictionary)
-                elif type(children1) is dict:
+                if type(child1) is dict and type(child2) is dict:
+                    res = make_dict("dict", d, k, walk(child1, child2, d + 1))
+                    diff.append(res)
+                elif type(child1) is dict:
                     if k in file2:
-                        dictionary = {"status": "deleted dict", "depth": depth, "key": k, "value": walk(children1, children1, depth + 1)}
-                        diff.append(dictionary)
-                        dictionary = dictionary = {"status": "added", "depth": depth, "key": k, "value": file2[k]}
-                        diff.append(dictionary)
+                        res = make_dict("del dict", d, k, walk(child1, child1, d + 1))
+                        diff.append(res)
+                        res = make_dict("added", d, k, file2[k])
+                        diff.append(res)
                     else:
-                        dictionary = {"status": "deleted dict", "depth": depth, "key": k, "value": walk(children1, children1, depth + 1)}
-                        diff.append(dictionary)
-                elif type(children2) is dict:
+                        res = make_dict("del dict", d, k, walk(child1, child1, d + 1))
+                        diff.append(res)
+                elif type(child2) is dict:
                     if k in file1:
-                        dictionary = {"status": "added dict", "depth": depth, "key": k, "value": walk(children2, children2, depth + 1)}
-                        diff.append(dictionary)
-                        dictionary = {"status": "deleted", "depth": depth, "key": k, "value": file1[k]}
-                        diff.append(dictionary)
+                        res = make_dict("add dict", d, k, walk(child2, child2, d + 1))
+                        diff.append(res)
+                        res = make_dict("deleted", d, k, file1[k])
+                        diff.append(res)
                     else:
-                        dictionary = {"status": "added dict", "depth": depth, "key": k, "value": walk(children2, children2, depth + 1)}
-                    diff.append(dictionary)
+                        res = make_dict("add dict", d, k, walk(child2, child2, d + 1))
+                        diff.append(res)
         return diff
     return format(walk(file1, file2))
