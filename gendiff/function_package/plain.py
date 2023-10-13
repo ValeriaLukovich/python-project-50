@@ -1,6 +1,3 @@
-from gendiff.generate_diff import generate_diff
-
-
 def new_format(string):
     res = string.replace("'False'", "false")
     return res.replace("'True'", "true").replace("'None'", "null")
@@ -8,21 +5,29 @@ def new_format(string):
 
 def plain(lists, path='', res=[]):
     for elem in lists:
+        k = elem['key']
+        v = elem['value']
+        v1 = elem['value1']
         if elem['status'] == "dict":
-            plain(elem['value'], path + elem['key'] + '.')
+            plain(v, path + elem['key'] + '.')
         else:
             if elem['status'] == "deleted":
-                res.append(f"Property '{path}{elem['key']}' was removed")
+                res.append(f"Property '{path}{k}' was removed")
             elif elem['status'] == "added":
-                if isinstance(elem['value'], dict):
-                    res.append(f"Property '{path}{elem['key']}' was added with value: [complex value]")
+                if isinstance(v, dict):
+                    res.append(f"Property '{path}{k}' "
+                               f"was added with value: [complex value]")
                 else:
-                    res.append(f"Property '{path}{elem['key']}' was added with value: '{str(elem['value'])}'")
+                    res.append(f"Property '{path}{k}' "
+                               f"was added with value: '{str(v)}'")
             elif elem['status'] == "updated":
-                if isinstance(elem['value1'], dict):
-                    res.append(f"Property '{path}{elem['key']}' was updated. From [complex value] to '{str(elem['value2'])}'")
-                elif isinstance(elem['value2'], dict):
-                    res.append(f"Property '{path}{elem['key']}' was updated. From '{str(elem['value1'])}' to [complex value]")
+                if isinstance(v, dict):
+                    res.append(f"Property '{path}{k}' was updated. "
+                               f"From [complex value] to '{str(v1)}'")
+                elif isinstance(v1, dict):
+                    res.append(f"Property '{path}{k}' was updated. "
+                               f"From '{str(v)}' to [complex value]")
                 else:
-                    res.append(f"Property '{path}{elem['key']}' was updated. From '{str(elem['value1'])}' to '{str(elem['value2'])}'")
+                    res.append(f"Property '{path}{k}' was updated. "
+                               f"From '{str(v)}' to '{str(v1)}'")
     return new_format("\n".join(res))

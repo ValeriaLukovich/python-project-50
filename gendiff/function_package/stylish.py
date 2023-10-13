@@ -17,25 +17,28 @@ def make_string(elem, d, new_string=''):
         return to_str(elem)
 
 
-def stylish_before(lists, d=1):
+def make_style(lists, d=1):
     res = []
     for elem in lists:
         space = d * "    "
         space1 = (d - 1) * "    " + "  - "
         space2 = (d - 1) * "    " + "  + "
+        k = elem['key']
+        v = elem['value']
+        v1 = elem['value1']
         if elem['status'] == "dict":
-            res.append(space + elem['key'] + ': {\n' + stylish_before(elem['value'], d + 1) + '\n' + space + '}')
+            res.append(space + k + ': {\n' + make_style(v, d + 1) + '\n' + space + '}')
         elif elem['status'] == "deleted":
-            res.append(space1 + elem['key'] + ': ' + make_string(elem['value'], d))
+            res.append(space1 + k + ': ' + make_string(v, d))
         elif elem['status'] == "added":
-            res.append(space2 + elem['key'] + ': ' + make_string(elem['value'], d))
+            res.append(space2 + k + ': ' + make_string(v, d))
         elif elem['status'] == "updated":
-            res.append(space1 + elem['key'] + ': ' + make_string(elem['value1'], d))
-            res.append(space2 + elem['key'] + ': ' + make_string(elem['value2'], d))
+            res.append(space1 + k + ': ' + make_string(v, d))
+            res.append(space2 + k + ': ' + make_string(v1, d))
         elif elem['status'] == "without changes":
-            res.append(space + elem['key'] + ': ' + make_string(elem['value'], d))
+            res.append(space + elem['key'] + ': ' + make_string(v, d))
     return "\n".join(res)
 
 
 def stylish(lists):
-    return "{\n" + stylish_before(lists) + "\n}"
+    return "{\n" + make_style(lists) + "\n}"

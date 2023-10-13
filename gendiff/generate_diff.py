@@ -1,5 +1,16 @@
 from gendiff.parsing_files import parsing_files
-from gendiff.function_package import stylish
+from gendiff.function_package.stylish import stylish
+
+
+def make_dict(status, d, k, value, value1=0):
+    dictionary = {
+        "status": status,
+        'depth': d,
+        'key': k,
+        'value': value,
+        'value1': value1
+        }
+    return dictionary
 
 
 def generate_diff(first_file, second_file, format=stylish):
@@ -13,20 +24,20 @@ def generate_diff(first_file, second_file, format=stylish):
             child1 = file1.get(k)
             child2 = file2.get(k)
             if isinstance(child1, dict) and isinstance(child2, dict):
-                res = {"status": "dict", 'depth': d, 'key': k, 'value': walk(child1, child2, d + 1)}
+                res = make_dict("dict", d, k, walk(child1, child2, d + 1))
                 diff.append(res)
             else:
                 if k in file1 and k in file2 and file1[k] == file2[k]:
-                    res = {"status": "without changes", 'depth': d, 'key': k, 'value': file1[k]}
+                    res = make_dict("without changes", d, k, file1[k])
                     diff.append(res)
                 elif k in file1 and k in file2 and file1[k] != file2[k]:
-                    res = {"status": "updated", 'depth': d, 'key': k, 'value1': file1[k], 'value2': file2[k]}
+                    res = make_dict("updated", d, k, file1[k], file2[k])
                     diff.append(res)
                 elif k in file1:
-                    res = {"status": "deleted", 'depth': d, 'key': k, 'value': file1[k]}
+                    res = make_dict("deleted", d, k, file1[k])
                     diff.append(res)
                 elif k in file2:
-                    res = {"status": "added", 'depth': d, 'key': k, 'value': file2[k]}
+                    res = make_dict("added", d, k, file2[k])
                     diff.append(res)
         return diff
     return format(walk(file1, file2))
