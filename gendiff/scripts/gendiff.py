@@ -3,18 +3,23 @@
 
 import argparse
 from gendiff.generate_diff import generate_diff
+from gendiff.function_package.stylish import stylish
+from gendiff.function_package.plain import plain
 
 
 string = 'Compares two configuration files and shows a difference.'
 parser = argparse.ArgumentParser(description=string)
 parser.add_argument('first_file', help='what about first file')
 parser.add_argument('second_file', help='what about second file')
-parser.add_argument("-f", "--format", help="set format of output")
+parser.add_argument("-f", "--format", help="set format of output, default: 'stylish'")
 args = parser.parse_args()
 
 
 def main():
-    print(generate_diff(args.first_file, args.second_file))
+    if args.format == 'plain':
+        print(generate_diff(args.first_file, args.second_file, format=plain))
+    else:
+        print(generate_diff(args.first_file, args.second_file, format=stylish))
 
 
 if __name__ == '__main__':
