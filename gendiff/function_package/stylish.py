@@ -36,7 +36,7 @@ def make_style(lists, d=1):
             res.append(space1 + k + ': ' + make_string(v, d))
             res.append(space2 + k + ': ' + make_string(v1, d))
         elif elem['status'] == "without changes":
-            res.append(space + elem['key'] + ': ' + make_string(v, d))
+            res.append(space + k + ': ' + make_string(v, d))
     return "\n".join(res)
 
 

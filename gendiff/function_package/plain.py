@@ -3,13 +3,14 @@ def new_format(string):
     return res.replace("'True'", "true").replace("'None'", "null")
 
 
-def plain(lists, path='', res=[]):
+def plain(lists, path=''):
+    res=[]
     for elem in lists:
         k = elem['key']
         v = elem['value']
         v1 = elem['value1']
         if elem['status'] == "dict":
-            plain(v, path + elem['key'] + '.')
+            res.append(plain(v, path + k + '.'))
         else:
             if elem['status'] == "deleted":
                 res.append(f"Property '{path}{k}' was removed")

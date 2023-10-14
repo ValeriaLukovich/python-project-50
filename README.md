@@ -18,3 +18,6 @@
 
 
 [![asciicast](https://asciinema.org/a/M6hKfdl4VyIzwybjxKBwrtF0R.svg)](https://asciinema.org/a/M6hKfdl4VyIzwybjxKBwrtF0R)
+
+
+[![asciicast](https://asciinema.org/a/kxXmq3w8mva5Gio7LI0SaUkYZ.svg)](https://asciinema.org/a/kxXmq3w8mva5Gio7LI0SaUkYZ)

@@ -159,3 +159,23 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]'''
 
+
+@pytest.fixture
+def test_plain1():
+    return '''Property 'common' was added with value: [complex value]
+Property 'follow' was removed
+Property 'group1' was added with value: [complex value]
+Property 'group3' was added with value: [complex value]
+Property 'host' was removed
+Property 'proxy' was removed
+Property 'timeout' was removed'''
+
+
+@pytest.fixture
+def test_json():
+    return '''[{"status": "dict", "depth": 1, "key": "common", "value": [{"status": "added", "depth": 2, "key": "follow", "value": false, "value1": 0}, {"status": "without changes", "depth": 2, "key": "setting1", "value": "Value 1", "value1": 0}, {"status": "deleted", "depth": 2, "key": "setting2", "value": 200, "value1": 0}, {"status": "updated", "depth": 2, "key": "setting3", "value": true, "value1": null}, {"status": "added", "depth": 2, "key": "setting4", "value": "blah blah", "value1": 0}, {"status": "added", "depth": 2, "key": "setting5", "value": {"key5": "value5"}, "value1": 0}, {"status": "dict", "depth": 2, "key": "setting6", "value": [{"status": "dict", "depth": 3, "key": "doge", "value": [{"status": "updated", "depth": 4, "key": "wow", "value": "", "value1": "so much"}], "value1": 0}, {"status": "without changes", "depth": 3, "key": "key", "value": "value", "value1": 0}, {"status": "added", "depth": 3, "key": "ops", "value": "vops", "value1": 0}], "value1": 0}], "value1": 0}, {"status": "dict", "depth": 1, "key": "group1", "value": [{"status": "updated", "depth": 2, "key": "baz", "value": "bas", "value1": "bars"}, {"status": "without changes", "depth": 2, "key": "foo", "value": "bar", "value1": 0}, {"status": "updated", "depth": 2, "key": "nest", "value": {"key": "value"}, "value1": "str"}], "value1": 0}, {"status": "deleted", "depth": 1, "key": "group2", "value": {"abc": 12345, "deep": {"id": 45}}, "value1": 0}, {"status": "added", "depth": 1, "key": "group3", "value": {"deep": {"id": {"number": 45}}, "fee": 100500}, "value1": 0}]'''
+
+
+@pytest.fixture
+def test_json1():
+    return '''[{"status": "deleted", "depth": 1, "key": "common", "value": {"setting1": "Value 1", "setting2": 200, "setting3": true, "setting6": {"key": "value", "doge": {"wow": ""}}}, "value1": 0}, {"status": "deleted", "depth": 1, "key": "group1", "value": {"baz": "bas", "foo": "bar", "nest": {"key": "value"}}, "value1": 0}, {"status": "deleted", "depth": 1, "key": "group2", "value": {"abc": 12345, "deep": {"id": 45}}, "value1": 0}, {"status": "added", "depth": 1, "key": "host", "value": "hexlet.io", "value1": 0}, {"status": "added", "depth": 1, "key": "timeout", "value": 20, "value1": 0}, {"status": "added", "depth": 1, "key": "verbose", "value": true, "value1": 0}]'''
