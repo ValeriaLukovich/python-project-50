@@ -1,4 +1,4 @@
-from gendiff.generate_diff import generate_diff
+from gendiff.diff import generate_diff
 from gendiff.function_package.stylish import stylish
 from gendiff.function_package.plain import plain
 from gendiff.function_package.json import json_f

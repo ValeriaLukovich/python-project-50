@@ -1,4 +1,4 @@
-from gendiff.generate_diff import generate_diff
+from gendiff.diff import generate_diff
 from gendiff.function_package.plain import plain
 from gendiff.function_package.json import json_f
 from tests.conftest import test_result, test_compare_file1, test_compare_file2, test_compare_nested_files, test_compare_nested_files3, test_compare_nested_files4, test_plain, test_plain1, test_json, test_json1
