@@ -27,7 +27,7 @@ def make_style(lists, d=1):
         space = d * "    "
         string = space + k
         string1 = (d - 1) * "    " + "  - " + k + ': '
-        string2 = (d - 1) * "    " + "  + " + k + ': '
+        string2 = string1.replace("-", "+")
         if elem['status'] == "dict":
             res.append(string + ': {\n' + make_style(v, d + 1)
                        + '\n' + space + '}')
