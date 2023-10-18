@@ -24,7 +24,7 @@ def chek_key(k, file1, file2):
     return res
 
 
-def generate_diff(first_file, second_file, format=stylish):
+def generate_diff(first_file, second_file):
     file1 = parsing_files(first_file)
     file2 = parsing_files(second_file)
 
@@ -40,4 +40,4 @@ def generate_diff(first_file, second_file, format=stylish):
             else:
                 diff.append(chek_key(k, file1, file2))
         return diff
-    return format(walk(file1, file2))
+    return walk(file1, file2)

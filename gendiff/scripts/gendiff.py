@@ -18,11 +18,11 @@ args = parser.parse_args()
 
 def main():
     if args.format == 'plain':
-        print(generate_diff(args.first_file, args.second_file, format=plain))
+        print(plain(generate_diff(args.first_file, args.second_file)))
     elif args.format == 'json':
-        print(generate_diff(args.first_file, args.second_file, format=json_f))
+        print(json_f(generate_diff(args.first_file, args.second_file)))
     else:
-        print(generate_diff(args.first_file, args.second_file, format=stylish))
+        print(stylish(generate_diff(args.first_file, args.second_file)))
 
 
 if __name__ == '__main__':
