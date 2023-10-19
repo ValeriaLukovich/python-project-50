@@ -1,6 +1,7 @@
 def new_format(string):
     res = string.replace("'False'", "false")
-    return res.replace("'True'", "true").replace("'None'", "null")
+    res1 = res.replace("'0'", "0")
+    return res1.replace("'True'", "true").replace("'None'", "null")
 
 
 def check_value(value):
