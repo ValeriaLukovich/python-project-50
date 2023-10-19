@@ -12,6 +12,9 @@ __all__ = (
     )
 
 
+def main():
+    print(stylish(generate_diff()))
+
+
 if __name__ == "__main__":
-    diff = stylish(generate_diff())
-    print(diff)
+    main()
