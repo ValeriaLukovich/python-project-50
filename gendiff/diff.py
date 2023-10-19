@@ -1,5 +1,4 @@
 from gendiff.parsing_files import parsing_files
-from gendiff.function_package.stylish import stylish
 
 
 def make_dict(status, k, value, value1=0):

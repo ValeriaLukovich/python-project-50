@@ -12,9 +12,6 @@ __all__ = (
     )
 
 
-def main():
-    print(stylish(generate_diff(args.first_file, args.second_file)))
-
-
-if __name__ == '__main__':
-    main()  
+if __name__ == "__main__":
+    diff = stylish(generate_diff())
+    print(diff)
