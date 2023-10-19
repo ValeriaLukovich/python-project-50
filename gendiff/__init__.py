@@ -10,11 +10,3 @@ __all__ = (
     "plain",
     "json_f",
     )
-
-
-def main():
-    print(stylish(generate_diff()))
-
-
-if __name__ == "__main__":
-    main()

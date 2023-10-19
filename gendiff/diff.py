@@ -1,4 +1,7 @@
 from gendiff.parsing_files import parsing_files
+from gendiff.function_package.stylish import stylish
+from gendiff.function_package.plain import plain
+from gendiff.function_package.json import json_f
 
 
 def make_dict(status, k, value, value1=0):
@@ -23,7 +26,7 @@ def chek_key(k, file1, file2):
     return res
 
 
-def generate_diff(first_file, second_file):
+def make_diff(first_file, second_file):
     file1 = parsing_files(first_file)
     file2 = parsing_files(second_file)
 
@@ -40,3 +43,13 @@ def generate_diff(first_file, second_file):
                 diff.append(chek_key(k, file1, file2))
         return diff
     return walk(file1, file2)
+
+
+def generate_diff(first_file, second_file, form="stylish"):
+    lists = make_diff(first_file, second_file)
+    if form == 'stylish':
+        return stylish(lists)
+    elif form == 'plain':
+        return plain(lists)
+    elif form == 'json':
+        return json_f(lists)
