@@ -10,3 +10,11 @@ __all__ = (
     "plain",
     "json_f",
     )
+
+
+def main():
+    print(stylish(generate_diff(args.first_file, args.second_file)))
+
+
+if __name__ == '__main__':
+    main()  
