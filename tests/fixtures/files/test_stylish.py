@@ -12,7 +12,7 @@ def result():
 def result1():
     with open('tests/fixtures/files/flat_stylish_1', "r") as read_file:
         return read_file.read()
-    
+
 
 @pytest.fixture
 def result2():
