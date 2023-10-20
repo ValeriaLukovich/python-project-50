@@ -8,7 +8,7 @@ def result_nested():
         return read_file.read()
 
 
-def test_json():
+def test_json_same():
     assert generate_diff('tests/fixtures/files/file1.json', 'tests/fixtures/files/file1.json', "plain") == ''
 
 

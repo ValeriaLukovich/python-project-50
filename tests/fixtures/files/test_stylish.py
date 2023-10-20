@@ -12,7 +12,7 @@ def result():
 def result1():
     with open('tests/fixtures/files/flat_stylish_1', "r") as read_file:
         return read_file.read()
-        
+    
 
 @pytest.fixture
 def result2():
@@ -36,7 +36,7 @@ def result_nested1():
 def result_nested2():
     with open('tests/fixtures/files/nested_stylish_2', "r") as read_file:
         return read_file.read()
-       
+
 
 def test_json(result):
     assert generate_diff('tests/fixtures/files/file1.json', 'tests/fixtures/files/file2.json') == result.rstrip()
