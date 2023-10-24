@@ -1,5 +1,5 @@
 import json
 
 
-def json_f(lists):
+def make_json(lists):
     return json.dumps(lists)

@@ -1,26 +1,27 @@
-def new_format(string):
-    res = string.replace("'False'", "false")
-    res1 = res.replace("'0'", "0")
-    return res1.replace("'True'", "true").replace("'None'", "null")
-
-
 def check_value(value):
     if isinstance(value, dict):
         value = '[complex value]'
+    elif isinstance(value, bool):
+        if value:
+            value = "true"
+        else:
+            value = "false"
+    elif value is None:
+        value = "null"
     else:
         value = f"'{str(value)}'"
     return value
 
 
-def plain(lists, path=''):
+def make_plain(lists, path=''):
     res = []
     for elem in lists:
         k = elem['key']
         v = elem['value']
-        v1 = elem['value1']
+        v1 = elem['new_value']
         string = f"Property '{path}{k}' was"
         if elem['status'] == "dict":
-            res.append(plain(v, path + k + '.'))
+            res.append(make_plain(v, path + k + '.'))
         else:
             if elem['status'] == "deleted":
                 res.append(f"{string} removed")
@@ -29,4 +30,4 @@ def plain(lists, path=''):
             elif elem['status'] == "updated":
                 res.append(f"{string} updated. "
                            f"From {check_value(v)} to {check_value(v1)}")
-    return new_format("\n".join(res))
+    return "\n".join(res)
