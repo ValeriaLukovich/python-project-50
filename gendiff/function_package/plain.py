@@ -10,7 +10,7 @@ def check_value(value):
         value = "null"
     else:
         value = f"'{str(value)}'"
-    return value
+    return value.replace("'0'", "0")
 
 
 def make_plain(lists, path=''):
