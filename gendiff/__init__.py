@@ -1,7 +1,7 @@
 from gendiff.diff import generate_diff
-from gendiff.function_package.stylish import make_stylish
-from gendiff.function_package.plain import make_plain
-from gendiff.function_package.json import make_json
+from gendiff.formatters.stylish import make_stylish
+from gendiff.formatters.plain import make_plain
+from gendiff.formatters.json import make_json
 
 
 __all__ = (

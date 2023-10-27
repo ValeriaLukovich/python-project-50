@@ -1,7 +1,8 @@
 from gendiff.parsing_files import parsing_files
-from gendiff.function_package.stylish import make_stylish
-from gendiff.function_package.plain import make_plain
-from gendiff.function_package.json import make_json
+from gendiff.parsing_files import find_suffix
+from gendiff.formatters.stylish import make_stylish
+from gendiff.formatters.plain import make_plain
+from gendiff.formatters.json import make_json
 
 
 def make_dict(status, k, value, new_value=None):
@@ -41,9 +42,11 @@ def make_diff(file1, file2):
 
 
 def generate_diff(first_file, second_file, form="stylish"):
-    file1 = parsing_files(first_file)
-    file2 = parsing_files(second_file)
-    lists = make_diff(file1, file2)
+    file1, format1 = find_suffix(first_file)
+    file2, format2 = find_suffix(second_file)
+    dict1 = parsing_files(file1, format1)
+    dict2 = parsing_files(file2, format2)
+    lists = make_diff(dict1, dict2)
     if form == 'stylish' or not form:
         return make_stylish(lists)
     elif form == 'plain':

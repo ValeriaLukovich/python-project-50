@@ -1,16 +1,16 @@
 def check_value(value):
     if isinstance(value, dict):
-        value = '[complex value]'
+        return '[complex value]'
     elif isinstance(value, bool):
         if value:
-            value = "true"
+            return "true"
         else:
-            value = "false"
+            return "false"
     elif value is None:
-        value = "null"
-    else:
-        value = f"'{str(value)}'"
-    return value.replace("'0'", "0")
+        return "null"
+    elif isinstance(value, int):
+        return value
+    return f"'{value}'"
 
 
 def make_plain(lists, path=''):
@@ -20,14 +20,18 @@ def make_plain(lists, path=''):
         v = elem['value']
         v1 = elem['new_value']
         string = f"Property '{path}{k}' was"
-        if elem['status'] == "dict":
-            res.append(make_plain(v, path + k + '.'))
-        else:
-            if elem['status'] == "deleted":
+        match elem['status']:
+            case "dict":
+                res.append(make_plain(v, f"{path}{k}."))
+            case "deleted":
                 res.append(f"{string} removed")
-            elif elem['status'] == "added":
+            case "added":
                 res.append(f"{string} added with value: {check_value(v)}")
-            elif elem['status'] == "updated":
+            case "updated":
                 res.append(f"{string} updated. "
                            f"From {check_value(v)} to {check_value(v1)}")
+            case "without changes":
+                continue
+            case _:
+                raise ValueError
     return "\n".join(res)
