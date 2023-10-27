@@ -2,10 +2,7 @@ def check_value(value):
     if isinstance(value, dict):
         return '[complex value]'
     elif isinstance(value, bool):
-        if value:
-            return "true"
-        else:
-            return "false"
+        return str(value).lower()
     elif value is None:
         return "null"
     elif isinstance(value, int):
