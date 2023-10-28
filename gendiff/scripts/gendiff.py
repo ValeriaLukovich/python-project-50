@@ -9,7 +9,10 @@ string = 'Compares two configuration files and shows a difference.'
 parser = argparse.ArgumentParser(description=string)
 parser.add_argument('first_file', help='what about first file')
 parser.add_argument('second_file', help='what about second file')
-parser.add_argument("-f", "--format", help="output format, default: 'stylish'")
+parser.add_argument(
+    "-f", "--format", default="stylish",
+    help="output format, default: 'stylish'"
+    )
 args = parser.parse_args()
 
 

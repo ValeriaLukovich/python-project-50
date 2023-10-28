@@ -11,7 +11,7 @@ def to_str(elem):
 
 def make_string(elem, d, new_string=''):
     space = d * '    '
-    space2 = "\n" + (d + 1) * '    '
+    space2 = f"\n{(d + 1) * '    '}"
     if isinstance(elem, dict):
         for k, v in elem.items():
             if isinstance(v, dict):
