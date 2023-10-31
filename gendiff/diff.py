@@ -1,5 +1,5 @@
 from gendiff.parsing_files import parsing_files
-from gendiff.parsing_files import find_suffix
+from gendiff.parsing_files import open_file
 from gendiff.formatters.stylish import make_stylish
 from gendiff.formatters.plain import make_plain
 from gendiff.formatters.json import make_json
@@ -24,6 +24,8 @@ def chek_key(k, file1, file2):
         res = make_dict("deleted", k, file1[k])
     elif k in file2:
         res = make_dict("added", k, file2[k])
+    else:
+        raise ValueError("There is no such key in files")
     return res
 
 
@@ -42,8 +44,8 @@ def make_diff(file1, file2):
 
 
 def generate_diff(first_file, second_file, form="stylish"):
-    file1, format1 = find_suffix(first_file)
-    file2, format2 = find_suffix(second_file)
+    file1, format1 = open_file(first_file)
+    file2, format2 = open_file(second_file)
     dict1 = parsing_files(file1, format1)
     dict2 = parsing_files(file2, format2)
     lists = make_diff(dict1, dict2)

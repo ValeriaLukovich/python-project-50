@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 
-def find_suffix(file_to_find):
+def open_file(file_to_find):
     extension = Path(file_to_find).suffix
     if extension == '.json':
         format = 'json'
